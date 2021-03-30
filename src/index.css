@@ -182,18 +182,26 @@ code {
 /* NAVBAR */
 .nav {
   display: flex;
-  background: #6200ee;
+  background: #38b6ff;
   padding: 10px 20px;
   align-items: center;
   justify-content: space-between;
 }
 .logo {
   color: #fff;
-  font-size: 35px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.globe-icon {
+  padding: 10px;
+  color: white;
 }
 .logo-icons {
   font-size: 40px;
-  color: #ece60e;
+  color: white;
 }
 nav #user-dp {
   height: 40px;
