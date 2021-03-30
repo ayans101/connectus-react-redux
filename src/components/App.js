@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { PostsList } from './';
 
 import { fetchPosts } from '../actions/posts';
 
@@ -9,8 +10,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('PROPS', this.props);
-    return <div></div>;
+    const { posts } = this.props;
+    return (
+      <div>
+        <PostsList posts={posts} />
+      </div>
+    );
   }
 }
 
