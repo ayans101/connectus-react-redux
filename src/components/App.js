@@ -18,7 +18,7 @@ class App extends React.Component {
         <nav className="nav">
           <div className="left-div">
             <div className="logo">
-              <LanguageIcon className="globe-icon" fontSize="medium" />
+              <LanguageIcon className="globe-icon" fontSize="small" />
               {'< ConnectUs />'}
             </div>
           </div>
