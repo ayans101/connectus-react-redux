@@ -9,7 +9,7 @@ export function fetchPosts() {
         return response.json();
       })
       .then((data) => {
-        console.log(data.posts);
+        console.log('Fetched data', data);
         dispatch(updatePosts(data.posts));
       });
   };
