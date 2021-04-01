@@ -1,4 +1,4 @@
-import { LOGIN_START } from './actionTypes';
+import { LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
 
@@ -8,8 +8,23 @@ export function startlogin() {
   };
 }
 
+export function loginFailed(errorMessage) {
+  return {
+    type: LOGIN_FAILED,
+    error: errorMessage,
+  };
+}
+
+export function loginSuccess(user) {
+  return {
+    type: LOGIN_SUCCESS,
+    user,
+  };
+}
+
 export function login(email, password) {
   return (dispatch) => {
+    dispatch(startlogin());
     const url = APIUrls.login();
     fetch(url, {
       method: 'POST',
@@ -17,6 +32,17 @@ export function login(email, password) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: getFormBody({ email, password }),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data.success);
+        if (data.success) {
+          //  dispatch action to save user
+          dispatch(loginSuccess(data.data.user));
+          return;
+        } else {
+          dispatch(loginFailed(data.message));
+        }
+      });
   };
 }
