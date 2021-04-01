@@ -259,7 +259,12 @@ nav .nav-links ul {
   }
 }
 nav .nav-links ul li {
-  padding: 0 4px;
+  padding-left: 40px;
+}
+@media screen and (max-width: 800px) {
+  nav .nav-links ul li {
+    padding-left: 10px;
+  }
 }
 nav .nav-links ul li a {
   text-decoration: none;
