@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LanguageIcon from '@material-ui/icons/Language';
 
 function Navbar(props) {
@@ -6,8 +7,10 @@ function Navbar(props) {
     <nav className="nav">
       <div className="left-div">
         <div className="logo">
-          <LanguageIcon className="globe-icon" fontSize="small" />
-          {'< ConnectUs />'}
+          <Link to="/">
+            <LanguageIcon className="globe-icon" fontSize="small" />
+          </Link>
+          <Link to="/">{'< ConnectUs />'}</Link>
         </div>
       </div>
       <div className="search-container">
@@ -48,9 +51,15 @@ function Navbar(props) {
         </div>
         <div className="nav-links">
           <ul>
-            <li>Log in</li>
-            <li>Log out</li>
-            <li>Register</li>
+            <li>
+              <Link to="/login">Log in</Link>
+            </li>
+            <li>
+              <Link to="/logout">Log out</Link>
+            </li>
+            <li>
+              <Link to="/signup">Register</Link>
+            </li>
           </ul>
         </div>
       </div>
