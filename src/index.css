@@ -271,7 +271,7 @@ nav .nav-links ul li a {
   color: #fff;
 }
 nav .nav-links ul li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 nav .nav-links ul li:hover {
   cursor: pointer;
