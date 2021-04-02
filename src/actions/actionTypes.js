@@ -12,3 +12,4 @@ export const LOG_OUT = 'LOG_OUT';
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILED = 'SIGNUP_FAILED';
+export const REFRESH_AUTH_STATE = 'REFRESH_AUTH_STATE';

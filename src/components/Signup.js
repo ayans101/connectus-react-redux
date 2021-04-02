@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startSingup, signup } from '../actions/auth';
+import { startSingup, signup, refreshAuthState } from '../actions/auth';
 
 class Signup extends Component {
   constructor(props) {
@@ -11,6 +11,10 @@ class Signup extends Component {
       name: '',
       confirmPassword: '',
     };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(refreshAuthState());
   }
 
   handleInputChange = (field, value) => {

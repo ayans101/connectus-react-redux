@@ -7,6 +7,7 @@ import {
   SIGNUP_START,
   SIGNUP_FAILED,
   SIGNUP_SUCCESS,
+  REFRESH_AUTH_STATE,
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getFormBody } from '../helpers/utils';
@@ -116,5 +117,11 @@ export function authenticateUser(user) {
 export function logoutUser() {
   return {
     type: LOG_OUT,
+  };
+}
+
+export function refreshAuthState() {
+  return {
+    type: REFRESH_AUTH_STATE,
   };
 }

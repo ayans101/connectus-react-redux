@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { login } from '../actions/auth';
+import { login, refreshAuthState } from '../actions/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -12,6 +12,10 @@ class Login extends Component {
       email: '',
       password: '',
     };
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(refreshAuthState());
   }
 
   handleFormSubmit = (e) => {
@@ -70,9 +74,7 @@ class Login extends Component {
               Logging in...
             </button>
           ) : (
-            <button onClick={this.handleFormSubmit} >
-              Log In
-            </button>
+            <button onClick={this.handleFormSubmit}>Log In</button>
           )}
         </div>
       </form>
