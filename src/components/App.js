@@ -8,10 +8,22 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login, Signup, Settings } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+
+//  update material ui themes with ThemeProvider
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#38b6ff',
+      contrastText: '#fff',
+    },
+  },
+});
 
 const PrivateRoute = (privateRouteProps) => {
   const { isLoggedin, path, component: Component } = privateRouteProps;
@@ -59,29 +71,31 @@ class App extends React.Component {
   render() {
     const { posts, auth } = this.props;
     return (
-      <Router>
-        <div>
-          <Navbar />
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div>
+            <Navbar />
 
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => {
-                return <Home {...props} posts={posts} />;
-              }}
-            />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <PrivateRoute
-              path="/settings"
-              component={Settings}
-              isLoggedin={auth.isLoggedin}
-            />
-            <Route component={Page404} />
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => {
+                  return <Home {...props} posts={posts} />;
+                }}
+              />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <PrivateRoute
+                path="/settings"
+                component={Settings}
+                isLoggedin={auth.isLoggedin}
+              />
+              <Route component={Page404} />
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
     );
   }
 }
