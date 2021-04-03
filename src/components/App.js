@@ -14,6 +14,7 @@ import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login, Signup, Settings } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import { getAuthFromLocalStorage } from '../helpers/utils';
 
 //  update material ui themes with ThemeProvider
 const theme = createMuiTheme({
@@ -52,7 +53,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthFromLocalStorage();
 
     if (token) {
       const user = jwtDecode(token);
