@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import { fetchPosts } from '../actions/posts';
-import { Home, Navbar, Page404, Login, Signup, Settings } from './';
+import { Home, Navbar, Page404, Login, Signup, Settings, UserProfile } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { getAuthFromLocalStorage } from '../helpers/utils';
@@ -90,6 +90,11 @@ class App extends React.Component {
               <PrivateRoute
                 path="/settings"
                 component={Settings}
+                isLoggedin={auth.isLoggedin}
+              />
+              <PrivateRoute
+                path="/user"
+                component={UserProfile}
                 isLoggedin={auth.isLoggedin}
               />
               <Route component={Page404} />
