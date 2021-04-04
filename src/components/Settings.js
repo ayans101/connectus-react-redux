@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editUser, refreshAuthState } from '../actions/auth';
+import { fetchPosts } from '../actions/posts';
 
 class Settings extends Component {
   constructor(props) {
@@ -22,11 +23,16 @@ class Settings extends Component {
   handleSave = () => {
     const { password, confirmPassword, name } = this.state;
     const { user } = this.props.auth;
-    this.props.dispatch(editUser(name, password, confirmPassword, user._id));
+    if (name && password && confirmPassword && password === confirmPassword) {
+      this.props.dispatch(editUser(name, password, confirmPassword, user._id));
+    } else {
+      alert(`Name field is blank or passwords don't match`);
+    }
   };
 
   componentWillUnmount() {
-      this.props.dispatch(refreshAuthState());
+    this.props.dispatch(refreshAuthState());
+    this.props.dispatch(fetchPosts());
   }
 
   render() {
