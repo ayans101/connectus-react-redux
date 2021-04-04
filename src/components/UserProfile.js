@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchUserProfile } from '../actions/Profile';
 
 class UserProfile extends Component {
   componentDidMount() {
     const { match } = this.props;
     if (match.params.userId) {
       // dispatch an action
+      this.props.dispatch(fetchUserProfile(match.params.userId));
     }
   }
 
   render() {
     const {
       match: { params },
+      profile,
     } = this.props;
     console.log('PARAMS', params);
+    const user = profile.user;
+
+    if(profile.inProgress){
+        return <h1>Loading...</h1>
+    }
+
     return (
       <div className="settings">
         <div className="img-container">
@@ -24,12 +34,12 @@ class UserProfile extends Component {
 
         <div className="field">
           <div className="field-label">Name</div>
-          <div className="field-value">Abstract</div>
+          <div className="field-value">{user.name}</div>
         </div>
 
         <div className="field">
           <div className="field-label">Email</div>
-          <div className="field-value">abs@gmail.com</div>
+          <div className="field-value">{user.email}</div>
         </div>
 
         <div className="btn-grp">
@@ -40,4 +50,10 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+function mapStateToProps({ profile }) {
+  return {
+    profile,
+  };
+}
+
+export default connect(mapStateToProps)(UserProfile);

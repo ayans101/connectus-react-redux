@@ -4,7 +4,7 @@ import {
   USER_PROFILE_SUCCESS,
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
-import { getAuthFromLocalStorage } from '../helpers/urls';
+import { getAuthFromLocalStorage } from '../helpers/utils';
 
 export function startUserProfileFetch(user) {
   return {
@@ -19,7 +19,7 @@ export function userProfileSuccess(user) {
   };
 }
 
-export function userProfileFailed(user) {
+export function userProfileFailed(error) {
   return {
     type: USER_PROFILE_FAILURE,
     error,
@@ -39,7 +39,7 @@ export function fetchUserProfile(userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(data.data.user);
+        dispatch(userProfileSuccess(data.data.user));
       });
   };
 }
