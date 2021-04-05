@@ -2,6 +2,7 @@ import {
   USER_PROFILE_SUCCESS,
   FETCH_USER_PROFILE,
   USER_PROFILE_FAILURE,
+  REFRESH_PROFILE_STATE
 } from '../actions/actionTypes';
 
 const initialProfileState = {
@@ -13,12 +14,18 @@ const initialProfileState = {
 
 export default function profile(state = initialProfileState, action) {
   switch (action.type) {
+    case REFRESH_PROFILE_STATE:
+      return {
+        ...state,
+        error: null,
+      };
     case USER_PROFILE_SUCCESS:
       return {
         ...state,
         success: true,
         user: action.user,
         inProgress: false,
+        error: null,
       };
     case USER_PROFILE_FAILURE:
       return {
@@ -30,6 +37,7 @@ export default function profile(state = initialProfileState, action) {
       return {
         ...state,
         inProgress: true,
+        error: null,
       };
     default:
       return state;

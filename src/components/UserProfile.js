@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserProfile } from '../actions/Profile';
+import { Redirect } from 'react-router';
+import { logoutUser } from '../actions/auth';
+import { fetchUserProfile, refreshProfileState } from '../actions/Profile';
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -19,8 +21,14 @@ class UserProfile extends Component {
     console.log('PARAMS', params);
     const user = profile.user;
 
-    if(profile.inProgress){
-        return <h1>Loading...</h1>
+    if (profile.error) {
+      this.props.dispatch(refreshProfileState());
+      this.props.dispatch(logoutUser());
+      return <Redirect to="/login" />;
+    }
+
+    if (profile.inProgress) {
+      return <h1>Loading...</h1>;
     }
 
     return (

@@ -2,9 +2,16 @@ import {
   FETCH_USER_PROFILE,
   USER_PROFILE_FAILURE,
   USER_PROFILE_SUCCESS,
+  REFRESH_PROFILE_STATE,
 } from './actionTypes';
 import { APIUrls } from '../helpers/urls';
 import { getAuthFromLocalStorage } from '../helpers/utils';
+
+export function refreshProfileState() {
+  return {
+    type: REFRESH_PROFILE_STATE,
+  };
+}
 
 export function startUserProfileFetch(user) {
   return {
@@ -39,7 +46,11 @@ export function fetchUserProfile(userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(userProfileSuccess(data.data.user));
+        if (data.success) {
+          dispatch(userProfileSuccess(data.data.user));
+          return;
+        }
+        dispatch(userProfileFailed(data.message));
       });
   };
 }
