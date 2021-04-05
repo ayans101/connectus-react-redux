@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editUser, refreshAuthState } from '../actions/auth';
+import { Redirect } from 'react-router';
+import { editUser, refreshAuthState, logoutUser } from '../actions/auth';
 import { fetchPosts } from '../actions/posts';
 
 class Settings extends Component {
@@ -31,12 +32,21 @@ class Settings extends Component {
   };
 
   componentWillUnmount() {
+    const { error } = this.props.auth;
+    if(error){
+      alert("Your token has expired...!");
+    }
     this.props.dispatch(refreshAuthState());
     this.props.dispatch(fetchPosts());
   }
 
   render() {
     const { user, auth, error } = this.props.auth;
+    if(error){
+      this.props.dispatch(refreshAuthState());
+      this.props.dispatch(logoutUser());
+      return <Redirect to="/login" />;
+    }
     const { editMode } = this.state;
     return (
       <div className="settings">
