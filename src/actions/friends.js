@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import { getAuthTokenFromLocalStorage } from '../helpers/utils';
+import { getAuthFromLocalStorage } from '../helpers/utils';
 import { FETCH_FRIENDS_SUCCESS } from './actionTypes';
 
 export function fetchUserFriends(userId) {
@@ -8,18 +8,18 @@ export function fetchUserFriends(userId) {
     fetch(url, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+        Authorization: `Bearer ${getAuthFromLocalStorage()}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
-        dispatch(fetchFriendsSucces(data.data.friends));
+        dispatch(fetchFriendsSuccess(data.data.friends));
       });
   };
 }
 
-export function fetchFriendsSucces(friends) {
+export function fetchFriendsSuccess(friends) {
   return {
     type: FETCH_FRIENDS_SUCCESS,
     friends,

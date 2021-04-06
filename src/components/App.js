@@ -11,9 +11,18 @@ import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import { fetchPosts } from '../actions/posts';
-import { Home, Navbar, Page404, Login, Signup, Settings, UserProfile } from './';
+import {
+  Home,
+  Navbar,
+  Page404,
+  Login,
+  Signup,
+  Settings,
+  UserProfile,
+} from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import { fetchUserFriends } from '../actions/friends';
 import { getAuthFromLocalStorage } from '../helpers/utils';
 
 //  update material ui themes with ThemeProvider
@@ -66,11 +75,13 @@ class App extends React.Component {
           name: user.name,
         })
       );
+
+      this.props.dispatch(fetchUserFriends());
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth, friends } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Router>
@@ -82,7 +93,14 @@ class App extends React.Component {
                 exact
                 path="/"
                 render={(props) => {
-                  return <Home {...props} posts={posts} />;
+                  return (
+                    <Home
+                      {...props}
+                      posts={posts}
+                      friends={friends}
+                      isLoggedin={auth.isLoggedin}
+                    />
+                  );
                 }}
               />
               <Route path="/login" component={Login} />
