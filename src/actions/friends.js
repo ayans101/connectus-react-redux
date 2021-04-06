@@ -1,6 +1,10 @@
 import { APIUrls } from '../helpers/urls';
 import { getAuthFromLocalStorage } from '../helpers/utils';
-import { FETCH_FRIENDS_SUCCESS, ADD_FRIEND } from './actionTypes';
+import {
+  FETCH_FRIENDS_SUCCESS,
+  ADD_FRIEND,
+  REMOVE_FRIEND,
+} from './actionTypes';
 
 export function fetchUserFriends() {
   return (dispatch) => {
@@ -32,5 +36,12 @@ export function addFriend(friend) {
   return {
     type: ADD_FRIEND,
     friend,
+  };
+}
+
+export function removeFriend(userId) {
+  return {
+    type: REMOVE_FRIEND,
+    userId,
   };
 }
