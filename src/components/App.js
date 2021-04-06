@@ -132,6 +132,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends: state.friends,
   };
 }
 
