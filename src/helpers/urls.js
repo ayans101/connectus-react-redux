@@ -7,8 +7,8 @@ export const APIUrls = {
   fetchPosts: () => `${API_ROOT}/posts/`,
   userProfile: (userId) => `${API_ROOT}/users/${userId}`,
   userFriends: () => `${API_ROOT}/friendship/fetch-user-friends`,
-  addFriend: (userId) =>
-    `${API_ROOT}/friendship/create-friendship/${userId}`,
+  addFriend: (userId) => `${API_ROOT}/friendship/create-friendship/${userId}`,
   removeFriend: (userId) =>
     `${API_ROOT}/friendship/remove-friendship/${userId}`,
+  createPost: () => `${API_ROOT}/posts/create`,
 };

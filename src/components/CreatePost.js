@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { createPost } from '../actions/posts';
 
 class CreatePost extends Component {
-  constructor() {
+  constructor(props) {
     super(props);
     this.state = {
       content: '',
@@ -10,6 +13,7 @@ class CreatePost extends Component {
 
   handleOnClick = () => {
     //  dispatch action
+    this.props.dispatch(createPost(this.state.content));
   };
 
   handleChange = (e) => {
@@ -28,13 +32,13 @@ class CreatePost extends Component {
         />
 
         <div>
-          <button id="add-post-btn" onClick={this.handleOnClick}>
+          <Button id="add-post-btn" onClick={this.handleOnClick}>
             Add Post
-          </button>
+          </Button>
         </div>
       </div>
     );
   }
 }
 
-export default CreatePost;
+export default connect()(CreatePost);
