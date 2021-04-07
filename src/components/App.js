@@ -20,10 +20,6 @@ import {
   Settings,
   UserProfile,
 } from './';
-import jwtDecode from 'jwt-decode';
-import { authenticateUser } from '../actions/auth';
-import { fetchUserFriends } from '../actions/friends';
-import { getAuthFromLocalStorage } from '../helpers/utils';
 
 //  update material ui themes with ThemeProvider
 const theme = createMuiTheme({
@@ -61,23 +57,6 @@ const PrivateRoute = (privateRouteProps) => {
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
-
-    const token = getAuthFromLocalStorage();
-
-    if (token) {
-      const user = jwtDecode(token);
-
-      console.log('user', user);
-      this.props.dispatch(
-        authenticateUser({
-          email: user.email,
-          _id: user._id,
-          name: user.name,
-        })
-      );
-
-      this.props.dispatch(fetchUserFriends());
-    }
   }
 
   render() {

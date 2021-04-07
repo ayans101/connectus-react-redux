@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startSingup, signup, refreshAuthState } from '../actions/auth';
+import jwtDecode from 'jwt-decode';
+import { authenticateUser } from '../actions/auth';
+import { getAuthFromLocalStorage } from '../helpers/utils';
 
 class Signup extends Component {
   constructor(props) {
@@ -16,6 +19,21 @@ class Signup extends Component {
 
   componentWillUnmount() {
     this.props.dispatch(refreshAuthState());
+
+    const token = getAuthFromLocalStorage();
+
+    if (token) {
+      const user = jwtDecode(token);
+
+      console.log('user', user);
+      this.props.dispatch(
+        authenticateUser({
+          email: user.email,
+          _id: user._id,
+          name: user.name,
+        })
+      );
+    }
   }
 
   handleInputChange = (field, value) => {
