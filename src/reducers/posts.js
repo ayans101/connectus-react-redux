@@ -51,8 +51,10 @@ export default function posts(state = [], action) {
       return __updatedPostsList;
     case ADD_LIKE_TO_COMMENT:
       const ___updatedPostsList = state.map((post) => {
+        let found = false;
         let updatedComments = post.comments.map((comment) => {
           if (comment._id === action.commentId) {
+            found = true;
             return {
               ...comment,
               likes: [...comment.likes, action.userId],
@@ -60,16 +62,22 @@ export default function posts(state = [], action) {
           }
           return comment;
         });
-        return {
-          ...post,
-          comments: [...updatedComments],
-        };
+        if (found) {
+          return {
+            ...post,
+            comments: [...updatedComments],
+          };
+        } else {
+          return post;
+        }
       });
       return ___updatedPostsList;
     case REMOVE_LIKE_FROM_COMMENT:
       const ____updatedPostsList = state.map((post) => {
+        let found = false;
         let updatedComments = post.comments.map((comment) => {
           if (comment._id === action.commentId) {
+            found = true;
             let newLikes = [...comment.likes];
             newLikes.pop(action.userId);
             return {
@@ -79,10 +87,14 @@ export default function posts(state = [], action) {
           }
           return comment;
         });
-        return {
-          ...post,
-          comments: [...updatedComments],
-        };
+        if (found) {
+          return {
+            ...post,
+            comments: [...updatedComments],
+          };
+        } else {
+          return post;
+        }
       });
       return ____updatedPostsList;
 
