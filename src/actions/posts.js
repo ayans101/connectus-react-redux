@@ -102,7 +102,7 @@ export function addLike(id, likeType, userId) {
       .then((data) => {
         console.log('LIKE DATA', data);
         if (data.success) {
-          if (likeType === 'Post') dispatch(addLikeToPost(id, userId));
+          if (likeType === 'Post' && !data.data.deleted) dispatch(addLikeToPost(id, userId));
         }
       });
   };
