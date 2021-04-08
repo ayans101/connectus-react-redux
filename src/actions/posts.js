@@ -5,6 +5,8 @@ import {
   ADD_COMMENT,
   ADD_LIKE_TO_POST,
   REMOVE_LIKE_FROM_POST,
+  ADD_LIKE_TO_COMMENT,
+  REMOVE_LIKE_FROM_COMMENT,
 } from './actionTypes';
 import { getAuthFromLocalStorage, getFormBody } from '../helpers/utils';
 
@@ -108,6 +110,11 @@ export function addLike(id, likeType, userId) {
           if (likeType === 'Post' && data.data.deleted) {
             dispatch(removeLikeFromPost(id, userId));
           }
+          if (likeType === 'Comment' && !data.data.deleted)
+            dispatch(addLikeToComment(id, userId));
+          if (likeType === 'Comment' && data.data.deleted) {
+            dispatch(removeLikeFromComment(id, userId));
+          }
         }
       });
   };
@@ -125,6 +132,22 @@ export function removeLikeFromPost(postId, userId) {
   return {
     type: REMOVE_LIKE_FROM_POST,
     postId,
+    userId,
+  };
+}
+
+export function addLikeToComment(commentId, userId) {
+  return {
+    type: ADD_LIKE_TO_COMMENT,
+    commentId,
+    userId,
+  };
+}
+
+export function removeLikeFromComment(commentId, userId) {
+  return {
+    type: REMOVE_LIKE_FROM_COMMENT,
+    commentId,
     userId,
   };
 }

@@ -12,6 +12,7 @@ class Comment extends Component {
     const { comment, user } = this.props;
     const d = new Date(comment.createdAt);
     const isCommentLikedByUser = comment.likes.includes(user._id);
+    console.log("******", isCommentLikedByUser);
 
     return (
       <div className="post-comment-item">

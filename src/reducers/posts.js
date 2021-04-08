@@ -3,7 +3,9 @@ import {
   UPDATE_POSTS,
   ADD_COMMENT,
   ADD_LIKE_TO_POST,
-  REMOVE_LIKE_FROM_POST
+  REMOVE_LIKE_FROM_POST,
+  ADD_LIKE_TO_COMMENT,
+  REMOVE_LIKE_FROM_COMMENT,
 } from '../actions/actionTypes';
 
 export default function posts(state = [], action) {
@@ -47,6 +49,42 @@ export default function posts(state = [], action) {
         return post;
       });
       return __updatedPostsList;
+    case ADD_LIKE_TO_COMMENT:
+      const ___updatedPostsList = state.map((post) => {
+        let updatedComments = post.comments.map((comment) => {
+          if (comment._id === action.commentId) {
+            return {
+              ...comment,
+              likes: [...comment.likes, action.userId],
+            };
+          }
+          return comment;
+        });
+        return {
+          ...post,
+          comments: [...updatedComments],
+        };
+      });
+      return ___updatedPostsList;
+    case REMOVE_LIKE_FROM_COMMENT:
+      const ____updatedPostsList = state.map((post) => {
+        let updatedComments = post.comments.map((comment) => {
+          if (comment._id === action.commentId) {
+            let newLikes = [...comment.likes];
+            newLikes.pop(action.userId);
+            return {
+              ...comment,
+              likes: [...newLikes],
+            };
+          }
+          return comment;
+        });
+        return {
+          ...post,
+          comments: [...updatedComments],
+        };
+      });
+      return ____updatedPostsList;
 
     default:
       return state;
