@@ -36,6 +36,7 @@ class Post extends Component {
   render() {
     const { post } = this.props;
     const { comment } = this.state;
+    const d = new Date(post.createdAt);
 
     return (
       <div className="post-wrapper" key={post._id}>
@@ -50,8 +51,7 @@ class Post extends Component {
             <div>
               <span className="post-author">{post.user.name}</span>
               <span className="post-time">
-                {post.createdAt.substring(0, 10)}{' '}
-                {post.createdAt.substring(11, 19)}
+                {d.toLocaleString()}
               </span>
             </div>
           </div>
@@ -60,7 +60,7 @@ class Post extends Component {
           <div className="post-actions">
             <div className="post-like">
               <img
-                src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                src="https://image.flaticon.com/icons/svg/633/633759.svg"
                 alt="likes-icon"
               />
               <span>{post.likes.length}</span>
