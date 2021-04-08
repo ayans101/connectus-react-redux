@@ -11,6 +11,7 @@ import FriendsListItem from './FriendsListItem';
 import FriendsList from './FriendsList';
 import CreatePost from './CreatePost';
 import Post from './Post';
+import Comment from './Comment';
 
 export {
   PostsList,
@@ -26,4 +27,5 @@ export {
   FriendsList,
   CreatePost,
   Post,
+  Comment,
 };
