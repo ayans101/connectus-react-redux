@@ -7,6 +7,11 @@ import {
   Redirect,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { refreshAuthState } from '../actions/auth';
+import jwtDecode from 'jwt-decode';
+import { authenticateUser } from '../actions/auth';
+import { fetchUserFriends } from '../actions/friends';
+import { getAuthFromLocalStorage } from '../helpers/utils';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
@@ -57,6 +62,24 @@ const PrivateRoute = (privateRouteProps) => {
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+    this.props.dispatch(refreshAuthState());
+
+    const token = getAuthFromLocalStorage();
+
+    if (token) {
+      const user = jwtDecode(token);
+
+      console.log('user', user);
+      this.props.dispatch(
+        authenticateUser({
+          email: user.email,
+          _id: user._id,
+          name: user.name,
+        })
+      );
+
+      this.props.dispatch(fetchUserFriends());
+    }
   }
 
   render() {

@@ -70,11 +70,7 @@ class Navbar extends React.Component {
               <ul>
                 {!auth.isLoggedin && (
                   <li>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this.logOut}
-                    >
+                    <Button variant="contained" color="primary">
                       <Link to="/login">Log in</Link>
                     </Button>
                   </li>
@@ -92,11 +88,7 @@ class Navbar extends React.Component {
                 )}
                 {!auth.isLoggedin && (
                   <li>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this.logOut}
-                    >
+                    <Button variant="contained" color="primary">
                       <Link to="/signup">Register</Link>
                     </Button>
                   </li>

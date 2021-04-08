@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Comment } from './';
+import { createComment } from '../actions/posts';
 
 class Post extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Post extends Component {
     const { post } = this.props;
 
     if (e.key === 'Enter') {
-      // this.props.dispatch(createComment(comment, post._id));
+      this.props.dispatch(createComment(comment, post._id));
 
       this.setState({
         comment: '',
