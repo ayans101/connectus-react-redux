@@ -3,7 +3,8 @@ import {
   ADD_POST,
   UPDATE_POSTS,
   ADD_COMMENT,
-  UPDATE_POST_LIKE,
+  ADD_LIKE_TO_POST,
+  REMOVE_LIKE_FROM_POST,
 } from './actionTypes';
 import { getAuthFromLocalStorage, getFormBody } from '../helpers/utils';
 
@@ -102,7 +103,11 @@ export function addLike(id, likeType, userId) {
       .then((data) => {
         console.log('LIKE DATA', data);
         if (data.success) {
-          if (likeType === 'Post' && !data.data.deleted) dispatch(addLikeToPost(id, userId));
+          if (likeType === 'Post' && !data.data.deleted)
+            dispatch(addLikeToPost(id, userId));
+          if (likeType === 'Post' && data.data.deleted) {
+            dispatch(removeLikeFromPost(id, userId));
+          }
         }
       });
   };
@@ -110,7 +115,15 @@ export function addLike(id, likeType, userId) {
 
 export function addLikeToPost(postId, userId) {
   return {
-    type: UPDATE_POST_LIKE,
+    type: ADD_LIKE_TO_POST,
+    postId,
+    userId,
+  };
+}
+
+export function removeLikeFromPost(postId, userId) {
+  return {
+    type: REMOVE_LIKE_FROM_POST,
     postId,
     userId,
   };
