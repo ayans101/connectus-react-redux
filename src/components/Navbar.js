@@ -5,22 +5,39 @@ import LanguageIcon from '@material-ui/icons/Language';
 import { Button } from '@material-ui/core';
 
 import { logoutUser } from '../actions/auth';
-import { searchUsers } from '../actions/search';
+import { searchUsers, refreshSearchResults } from '../actions/search';
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: '',
+    };
+  }
+
   logOut = () => {
     localStorage.removeItem('token');
     this.props.dispatch(logoutUser());
   };
 
   handleSearch = (e) => {
-    const searchText = e.target.value;
+    const { searchText } = this.state;
 
-    this.props.dispatch(searchUsers(searchText));
+    if (e.target.value) {
+      this.props.dispatch(searchUsers(searchText));
+    } else {
+      this.props.dispatch(refreshSearchResults());
+    }
+
+    this.setState({
+      searchText: e.target.value,
+    });
   };
 
   render() {
+    const { searchText } = this.state;
     const { auth, results } = this.props;
+
     return (
       // <ThemeProvider theme={theme}>
       <div>
@@ -40,7 +57,7 @@ class Navbar extends React.Component {
               alt="search-icon"
             />
             <input placeholder="Search" onChange={this.handleSearch} />
-            {results.length > 0 && (
+            {searchText && results.length > 0 && (
               <div className="search-results">
                 <ul>
                   {results.map((user) => (
@@ -54,6 +71,15 @@ class Navbar extends React.Component {
                       </Link>
                     </li>
                   ))}
+                </ul>
+              </div>
+            )}
+            {searchText && results.length === 0 && (
+              <div className="search-results">
+                <ul>
+                  <li className="search-results-row">
+                    No user registered with this name!
+                  </li>
                 </ul>
               </div>
             )}

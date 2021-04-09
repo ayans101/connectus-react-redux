@@ -1,4 +1,7 @@
-import { FETCH_SEARCH_RESULTS_SUCCESS } from './actionTypes';
+import {
+  FETCH_SEARCH_RESULTS_SUCCESS,
+  REFRESH_SEARCH_RESULTS,
+} from './actionTypes';
 import { getAuthFromLocalStorage } from '../helpers/utils';
 import { APIUrls } from '../helpers/urls';
 
@@ -7,6 +10,7 @@ export function searchUsers(searchText) {
     const url = APIUrls.userSearch(searchText);
 
     fetch(url, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${getAuthFromLocalStorage()}`,
@@ -28,5 +32,11 @@ export function searchResultsSuccess(users) {
   return {
     type: FETCH_SEARCH_RESULTS_SUCCESS,
     users,
+  };
+}
+
+export function refreshSearchResults() {
+  return {
+    type: REFRESH_SEARCH_RESULTS,
   };
 }

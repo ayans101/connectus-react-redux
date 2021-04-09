@@ -1,4 +1,7 @@
-import { FETCH_SEARCH_RESULTS_SUCCESS } from '../actions/actionTypes';
+import {
+  FETCH_SEARCH_RESULTS_SUCCESS,
+  REFRESH_SEARCH_RESULTS,
+} from '../actions/actionTypes';
 
 const initialSearchState = {
   results: [],
@@ -10,6 +13,10 @@ export default function search(state = initialSearchState, action) {
       return {
         ...state,
         results: action.users,
+      };
+    case REFRESH_SEARCH_RESULTS:
+      return {
+        results: [],
       };
     default:
       return state;
