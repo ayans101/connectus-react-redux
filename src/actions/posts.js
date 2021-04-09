@@ -90,7 +90,7 @@ export function createComment(content, postId) {
   };
 }
 
-export function addLike(id, likeType, userId) {
+export function addLike(id, likeType, userId, pId) {
   return (dispatch) => {
     const url = APIUrls.toggleLike(id, likeType);
 
@@ -111,9 +111,9 @@ export function addLike(id, likeType, userId) {
             dispatch(removeLikeFromPost(id, userId));
           }
           if (likeType === 'Comment' && !data.data.deleted)
-            dispatch(addLikeToComment(id, userId));
+            dispatch(addLikeToComment(id, userId, pId));
           if (likeType === 'Comment' && data.data.deleted) {
-            dispatch(removeLikeFromComment(id, userId));
+            dispatch(removeLikeFromComment(id, userId, pId));
           }
         }
       });
@@ -136,18 +136,20 @@ export function removeLikeFromPost(postId, userId) {
   };
 }
 
-export function addLikeToComment(commentId, userId) {
+export function addLikeToComment(commentId, userId, postId) {
   return {
     type: ADD_LIKE_TO_COMMENT,
     commentId,
     userId,
+    postId,
   };
 }
 
-export function removeLikeFromComment(commentId, userId) {
+export function removeLikeFromComment(commentId, userId, postId) {
   return {
     type: REMOVE_LIKE_FROM_COMMENT,
     commentId,
     userId,
+    postId,
   };
 }

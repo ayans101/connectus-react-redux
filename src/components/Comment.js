@@ -6,7 +6,8 @@ import { addLike } from '../actions/posts';
 class Comment extends Component {
   handleCommentLike = () => {
     const { comment, user } = this.props;
-    this.props.dispatch(addLike(comment._id, 'Comment', user._id));
+    console.log("&&&", comment);
+    this.props.dispatch(addLike(comment._id, 'Comment', user._id, comment.post));
   };
   render() {
     const { comment, user } = this.props;

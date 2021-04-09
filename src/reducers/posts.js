@@ -51,50 +51,44 @@ export default function posts(state = [], action) {
       return __updatedPostsList;
     case ADD_LIKE_TO_COMMENT:
       const ___updatedPostsList = state.map((post) => {
-        let found = false;
-        let updatedComments = post.comments.map((comment) => {
-          if (comment._id === action.commentId) {
-            found = true;
-            return {
-              ...comment,
-              likes: [...comment.likes, action.userId],
-            };
-          }
-          return comment;
-        });
-        if (found) {
+        if (post._id === action.postId) {
+          const updatedComments = post.comments.map((comment) => {
+            if (comment._id === action.commentId) {
+              return {
+                ...comment,
+                likes: [...comment.likes, action.userId],
+              };
+            }
+            return comment;
+          });
           return {
             ...post,
             comments: [...updatedComments],
           };
-        } else {
-          return post;
         }
+        return post;
       });
       return ___updatedPostsList;
     case REMOVE_LIKE_FROM_COMMENT:
       const ____updatedPostsList = state.map((post) => {
-        let found = false;
-        let updatedComments = post.comments.map((comment) => {
-          if (comment._id === action.commentId) {
-            found = true;
-            let newLikes = [...comment.likes];
-            newLikes.pop(action.userId);
-            return {
-              ...comment,
-              likes: [...newLikes],
-            };
-          }
-          return comment;
-        });
-        if (found) {
+        if (post._id === action.postId) {
+          const updatedComments = post.comments.map((comment) => {
+            if (comment._id === action.commentId) {
+              let newLikes = [...comment.likes];
+              newLikes.pop(action.userId);
+              return {
+                ...comment,
+                likes: [...newLikes],
+              };
+            }
+            return comment;
+          });
           return {
             ...post,
             comments: [...updatedComments],
           };
-        } else {
-          return post;
         }
+        return post;
       });
       return ____updatedPostsList;
 
