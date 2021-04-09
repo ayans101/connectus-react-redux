@@ -61,15 +61,15 @@ class Navbar extends React.Component {
               <div className="search-results">
                 <ul>
                   {results.map((user) => (
-                    <li className="search-results-row" key={user._id}>
-                      <Link to={`/user/${user._id}`}>
+                    <Link to={`/user/${user._id}`}>
+                      <li className="search-results-row" key={user._id}>
                         <img
                           src="https://image.flaticon.com/icons/svg/3135/3135715.svg"
                           alt="user-dp"
                         />
                         <span>{user.name}</span>
-                      </Link>
-                    </li>
+                      </li>
+                    </Link>
                   ))}
                 </ul>
               </div>
