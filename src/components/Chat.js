@@ -10,9 +10,12 @@ class Chat extends Component {
     this.state = {
       messages: [], // message: {content: 'some message', self: true}
       typedMessage: '',
+      hidden: false,
     };
 
-    this.socket = io.connect('http://localhost:5000');
+    this.socket = io.connect('http://localhost:5000', {
+      transports: ['websocket', 'polling', 'flashsocket'],
+    });
     this.userEmail = props.user.email;
   }
 
@@ -75,43 +78,68 @@ class Chat extends Component {
     }
   };
 
+  hideChatBox = () => {
+    const { hidden } = this.state;
+    this.setState({
+      hidden: !hidden,
+    });
+  };
+
   render() {
-    const { typedMessage, messages } = this.state;
-    return (
-      <div className="chat-container">
-        <div className="chat-header">
-          Chat
-          <img
-            src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
-            alt=""
-            height={17}
-          />
+    const { typedMessage, messages, hidden } = this.state;
+    if (hidden) {
+      return (
+        <div className="chat-container-x">
+          <div className="chat-header">
+            Chat
+            <img
+              src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
+              alt=""
+              height={17}
+              onClick={this.hideChatBox}
+            />
+          </div>
         </div>
-        <div className="chat-messages">
-          {messages.map((message, idx) => (
-            <div
-              className={
-                message.self
-                  ? 'chat-bubble self-chat'
-                  : 'chat-bubble other-chat'
-              }
-              key={idx}
-            >
-              <small>{message.user_email}</small>
-              <p>{message.content}</p>
-            </div>
-          ))}
+      );
+    }
+    if (!hidden) {
+      return (
+        <div className="chat-container">
+          <div className="chat-header">
+            Chat
+            <img
+              src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
+              alt=""
+              height={17}
+              onClick={this.hideChatBox}
+            />
+          </div>
+          <div className="chat-messages">
+            {messages.map((message, idx) => (
+              <div
+                className={
+                  message.self
+                    ? 'chat-bubble self-chat'
+                    : 'chat-bubble other-chat'
+                }
+                key={idx}
+              >
+                <small>{message.user_email}</small>
+                <p>{message.content}</p>
+              </div>
+            ))}
+          </div>
+          <div className="chat-footer">
+            <input
+              type="text"
+              value={typedMessage}
+              onChange={(e) => this.setState({ typedMessage: e.target.value })}
+            />
+            <button onClick={this.handleSubmit}>Submit</button>
+          </div>
         </div>
-        <div className="chat-footer">
-          <input
-            type="text"
-            value={typedMessage}
-            onChange={(e) => this.setState({ typedMessage: e.target.value })}
-          />
-          <button onClick={this.handleSubmit}>Submit</button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

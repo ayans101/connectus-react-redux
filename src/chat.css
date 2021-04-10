@@ -5,6 +5,13 @@
   bottom: 0;
   right: 10px;
 }
+.chat-container-x {
+  position: fixed;
+  height: 48px;
+  width: 300px;
+  bottom: 0;
+  right: 10px;
+}
 .chat-header {
   font-size: 20px;
   padding: 10px;
