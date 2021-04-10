@@ -88,18 +88,17 @@ class Chat extends Component {
           />
         </div>
         <div className="chat-messages">
-          {messages.map((message) => (
-            <div>
-              <div
-                className={
-                  message.self
-                    ? 'chat-bubble self-chat'
-                    : 'chat-bubble other-chat'
-                }
-              >
-                <small >{message.user_email}</small>
-                <p>{message.content}</p>
-              </div>
+          {messages.map((message, idx) => (
+            <div
+              className={
+                message.self
+                  ? 'chat-bubble self-chat'
+                  : 'chat-bubble other-chat'
+              }
+              key={idx}
+            >
+              <small>{message.user_email}</small>
+              <p>{message.content}</p>
             </div>
           ))}
         </div>

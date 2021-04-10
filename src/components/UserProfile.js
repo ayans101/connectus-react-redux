@@ -119,7 +119,11 @@ class UserProfile extends Component {
     const {
       match: { params },
       profile,
+      auth,
     } = this.props;
+    if (auth.user._id === profile.user._id) {
+      return <Redirect to="/settings" />;
+    }
     console.log('PARAMS', params);
     const user = profile.user;
 
@@ -180,10 +184,11 @@ class UserProfile extends Component {
   }
 }
 
-function mapStateToProps({ profile, friends }) {
+function mapStateToProps({ profile, friends, auth }) {
   return {
     profile,
     friends,
+    auth,
   };
 }
 
