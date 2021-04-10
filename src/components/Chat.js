@@ -44,6 +44,8 @@ class Chat extends Component {
       const { messages } = _this.state;
       const newMessage = {};
       newMessage.content = data.message;
+      newMessage.user_email = data.user_email;
+      newMessage.sender = data.sender;
       newMessage.self = false;
       if (data.user_email === _this.userEmail) {
         newMessage.self = true;
@@ -57,6 +59,20 @@ class Chat extends Component {
         });
       }
     });
+  };
+
+  handleSubmit = () => {
+    const _this = this;
+    const { typedMessage } = this.state;
+
+    if (typedMessage && this.userEmail) {
+      this.socket.emit('send_message', {
+        message: typedMessage,
+        user_email: _this.userEmail,
+        sender: _this.props.user.name,
+        chatroom: 'connectusroom',
+      });
+    }
   };
 
   render() {
@@ -73,18 +89,17 @@ class Chat extends Component {
         </div>
         <div className="chat-messages">
           {messages.map((message) => (
-            <div className="chat-bubble">
-              {messages.map((message) => (
-                <div
-                  className={
-                    message.self
-                      ? 'chat-bubble self-chat'
-                      : 'chat-bubble other-chat'
-                  }
-                >
-                  {message.content}
-                </div>
-              ))}
+            <div>
+              <div
+                className={
+                  message.self
+                    ? 'chat-bubble self-chat'
+                    : 'chat-bubble other-chat'
+                }
+              >
+                <small >{message.user_email}</small>
+                <p>{message.content}</p>
+              </div>
             </div>
           ))}
         </div>

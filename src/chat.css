@@ -32,7 +32,7 @@
   flex-direction: column;
 }
 .chat-messages .chat-bubble {
-  background: #e5e5e5;
+  background: #d9edf8;
   margin: 8px;
   padding: 10px;
   border-radius: 5px;
@@ -47,14 +47,15 @@
   width: 0;
   height: 0;
   border: 20px solid transparent;
-  border-right-color: #e5e5e5;
+  border-right-color: #d9edf8;
   border-left: 0;
   border-bottom: 0;
   margin-top: -1px;
   margin-left: -10px;
 }
 .chat-messages .self-chat {
-  background: #b0ffb3;
+  background: #f4f2f2;
+  text-align: right;
 }
 .chat-messages .self-chat:after {
   content: '';
@@ -64,7 +65,7 @@
   width: 0;
   height: 0;
   border: 20px solid transparent;
-  border-left-color: #b0ffb3;
+  border-left-color: #f4f2f2;
   border-right: 0;
   border-bottom: 0;
   margin-top: -1px;
