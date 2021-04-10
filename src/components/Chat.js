@@ -14,15 +14,48 @@ class Chat extends Component {
 
     this.socket = io.connect('http://localhost:5000');
     this.userEmail = props.user.email;
+  }
 
+  componentDidMount() {
     if (this.userEmail) {
       this.setupConnections();
     }
   }
 
   setupConnections = () => {
+    const _this = this;
+
     this.socket.on('connect', function () {
-      console.log('CONNECTION ESTABLISHED USING SOCKETS...!');
+      console.log('connection established using sockets...!');
+
+      _this.socket.emit('join_room', {
+        user_email: _this.userEmail,
+        chatroom: 'connectusroom',
+      });
+
+      _this.socket.on('user_joined', function (data) {
+        console.log('a user joined', data);
+      });
+    });
+
+    this.socket.on('receive_message', function (data) {
+      console.log('message received', data);
+      //  add message to state
+      const { messages } = _this.state;
+      const newMessage = {};
+      newMessage.content = data.message;
+      newMessage.self = false;
+      if (data.user_email === _this.userEmail) {
+        newMessage.self = true;
+        _this.setState({
+          messages: [...messages, newMessage],
+          typedMessage: '',
+        });
+      } else {
+        _this.setState({
+          messages: [...messages, newMessage],
+        });
+      }
     });
   };
 
@@ -44,7 +77,7 @@ class Chat extends Component {
               {messages.map((message) => (
                 <div
                   className={
-                    messages.self
+                    message.self
                       ? 'chat-bubble self-chat'
                       : 'chat-bubble other-chat'
                   }
