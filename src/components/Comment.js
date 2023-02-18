@@ -26,12 +26,12 @@ class Comment extends Component {
             >
               {isCommentLikedByUser ? (
                 <img
-                  src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
+                  src="/unlike.png"
                   alt="like post"
                 />
               ) : (
                 <img
-                  src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                  src="/like.png"
                   alt="likes-icon"
                 />
               )}

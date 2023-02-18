@@ -58,7 +58,7 @@ class Post extends Component {
               }
             >
               <img
-                src="https://image.flaticon.com/icons/svg/3135/3135715.svg"
+                src="/user-dp.png"
                 alt="user-pic"
               />
             </Link>
@@ -73,12 +73,12 @@ class Post extends Component {
             <Button className="post-like no-btn" onClick={this.handlePostLike}>
               {isPostLikedByUser ? (
                 <img
-                  src="https://image.flaticon.com/icons/svg/456/456115.svg"
+                  src="/unlike.png"
                   alt="likes-icon"
                 />
               ) : (
                 <img
-                  src="https://image.flaticon.com/icons/svg/633/633759.svg"
+                  src="/like.png"
                   alt="likes-icon"
                 />
               )}
@@ -87,7 +87,7 @@ class Post extends Component {
 
             <div className="post-comments-icon">
               <img
-                src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
+                src="/comment.png"
                 alt="comments-icon"
               />
               <span>{post.comments.length}</span>

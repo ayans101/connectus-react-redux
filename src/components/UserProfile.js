@@ -144,7 +144,7 @@ class UserProfile extends Component {
       <div className="settings">
         <div className="img-container">
           <img
-            src="https://image.flaticon.com/icons/svg/3135/3135715.svg"
+            src="/user-dp.png"
             alt="user-dp"
           />
         </div>

@@ -93,7 +93,7 @@ class Chat extends Component {
           <div className="chat-header">
             Chat
             <img
-              src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
+              src="/minus.png"
               alt=""
               height={17}
               onClick={this.hideChatBox}
@@ -108,7 +108,7 @@ class Chat extends Component {
           <div className="chat-header">
             Chat
             <img
-              src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
+              src="/minus.png"
               alt=""
               height={17}
               onClick={this.hideChatBox}
@@ -132,6 +132,7 @@ class Chat extends Component {
           <div className="chat-footer">
             <input
               type="text"
+              placeholder='Type here...'
               value={typedMessage}
               onChange={(e) => this.setState({ typedMessage: e.target.value })}
             />

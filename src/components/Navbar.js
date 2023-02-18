@@ -53,7 +53,7 @@ class Navbar extends React.Component {
           <div className="search-container">
             <img
               className="search-icon"
-              src="https://image.flaticon.com/icons/svg/483/483356.svg"
+              src="/search.png"
               alt="search-icon"
             />
             <input placeholder="Search" onChange={this.handleSearch} />
@@ -64,7 +64,7 @@ class Navbar extends React.Component {
                     <Link to={`/user/${user._id}`}>
                       <li className="search-results-row" key={user._id}>
                         <img
-                          src="https://image.flaticon.com/icons/svg/3135/3135715.svg"
+                          src="/user-dp.png"
                           alt="user-dp"
                         />
                         <span>{user.name}</span>
@@ -89,7 +89,7 @@ class Navbar extends React.Component {
               <div className="user">
                 <Link to="/settings">
                   <img
-                    src="https://image.flaticon.com/icons/svg/3135/3135715.svg"
+                    src="user-dp.png"
                     alt="user-dp"
                     id="user-dp"
                   />

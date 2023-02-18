@@ -5,7 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Kumbh Sans', sans-serif;
   background: #f9f9f9;
+}
+
+input[type='text'] {
+  font-family: 'Kumbh Sans', sans-serif;
 }
 
 code {
@@ -13,7 +18,12 @@ code {
     monospace;
 }
 
+.MuiButton-label {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
 .no-btn {
+  font-family: 'Kumbh Sans', sans-serif;
   border: none;
 }
 .no-btn:focus {
@@ -139,7 +149,7 @@ code {
   position: relative;
 }
 .post-comment-item {
-  background: #eceffa;
+  background: #f6faff;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 14px;
